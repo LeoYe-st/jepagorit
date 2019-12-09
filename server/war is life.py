@@ -357,11 +357,12 @@ class GameOfLife:
 if __name__ == '__main__':
     game = GameOfLife(640, 480, 20, 5)
     game.start_game()
-    if game.chosengame == 1:
-        game.run_war()
+    while True:
+        if game.chosengame == 1:
+            game.run_war()
 
-    if game.chosengame == 2:
-        game.run_economics()
+        if game.chosengame == 2:
+            game.run_economics()
 
-    if game.chosengame == 3:
-        game.run_religion()
+        if game.chosengame == 3:
+            game.run_religion()
