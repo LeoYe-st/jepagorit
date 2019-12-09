@@ -200,6 +200,7 @@ class GameOfLife:
         clock = pygame.time.Clock()
         pygame.display.set_caption('Game of Life')
         rules = True
+        running = True
         while rules:
             myImage1 = pygame.image.load('images\\warrules.jpg')
             myRect1 = (0, 0, 640, 480)
@@ -214,27 +215,28 @@ class GameOfLife:
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
-
+                        rules = False
+                        running = False
                         self.chosengame = 0
                         self.start_game()
-                        rules = False
-        running = True
 
-        self.screen.fill(pygame.Color('white'))
+        if running == True:
+            self.screen.fill(pygame.Color('white'))
 
-        self.draw_grid()
-        self.draw_war_map()
-        pygame.display.flip()
-        self.create_cell_list()
-        self.draw_cell_list()
-        self.draw_grid()
-        pygame.display.flip()
-        clock.tick(self.speed)
+            self.draw_grid()
+            self.draw_war_map()
+            pygame.display.flip()
+            self.create_cell_list()
+            self.draw_cell_list()
+            self.draw_grid()
+            pygame.display.flip()
+            clock.tick(self.speed)
 
         while running and self.counter < 50:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         running = False
@@ -259,75 +261,78 @@ class GameOfLife:
         points23 = 0
         points24 = 0
         points25 = 0
-        for i in range(self.cell_height):
-            for j in range(self.cell_width):
-                if i < 7 and j < 10:
-                    if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
-                        points11 += 1
+        if running == True:
+            for i in range(self.cell_height):
+                for j in range(self.cell_width):
+                    if i < 7 and j < 10:
+                        if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
+                            points11 += 1
 
-                    if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
-                        points21 += 1
+                        if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
+                            points21 += 1
 
-                if i < 7 and j > 21:
-                    if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
-                        points12 += 1
+                    if i < 7 and j > 21:
+                        if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
+                            points12 += 1
 
-                    if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
-                        points22 += 1
+                        if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
+                            points22 += 1
 
-                if i > 16 and j < 10:
-                    if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
-                        points13 += 1
+                    if i > 16 and j < 10:
+                        if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
+                            points13 += 1
 
-                    if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
-                        points23 += 1
+                        if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
+                            points23 += 1
 
-                if i > 16 and j > 21:
-                    if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
-                        points14 += 1
+                    if i > 16 and j > 21:
+                        if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
+                            points14 += 1
 
-                    if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
-                        points24 += 1
+                        if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
+                            points24 += 1
 
-                if (j < 19 and j > 12) and (i > 8 and i < 15):
-                    if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
-                        points15 += 1
+                    if (j < 19 and j > 12) and (i > 8 and i < 15):
+                        if self.cell_list[i][j] % 2 == 0 and self.cell_list[i][j] > 0:
+                            points15 += 1
 
-                    if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
-                        points25 += 1
-        print("First player captured: ", points11, points12, points13, points14, points15)
-        print("Second player captured: ", points21, points22, points23, points24, points25)
-        if points11 > 0 and points12 > 0 and points13 > 0 and points14 > 0 and points15 > 0:
-            print('Player #1 win!')
-        elif points21 > 0 and points22 > 0 and points23 > 0 and points24 > 0 and points25 > 0:
-            print('Player #2 win!')
-        else:
-            print('War, war never changes')
+                        if self.cell_list[i][j] % 2 == 1 and self.cell_list[i][j] > 0 and self.cell_list[i][j] != 1:
+                            points25 += 1
+            print("First player captured: ", points11, points12, points13, points14, points15)
+            print("Second player captured: ", points21, points22, points23, points24, points25)
+            if points11 > 0 and points12 > 0 and points13 > 0 and points14 > 0 and points15 > 0:
+                print('Player #1 win!')
+            elif points21 > 0 and points22 > 0 and points23 > 0 and points24 > 0 and points25 > 0:
+                print('Player #2 win!')
+            else:
+                print('War, war never changes')
 
-        self.chosengame = 0
-        self.start_game()
+            self.chosengame = 0
+            self.start_game()
 
     def run_life(self):
+        running = True
         pygame.init()
         clock = pygame.time.Clock()
-        pygame.display.set_caption('Game of Life')
+        pygame.display.set_caption('Thank you Conway!')
         self.screen.fill(pygame.Color('black'))
-        running = True
+
         self.draw_grid('white')
         pygame.display.flip()
-        self.create_cell_list(b='white')
+        self.create_cell_list(b='white', randomize=True)
 
         self.draw_grid('white')
         pygame.display.flip()
         clock.tick(self.speed)
+
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         running = False
-                        rules = False
                         self.chosengame = 0
                         self.start_game()
 
@@ -337,14 +342,17 @@ class GameOfLife:
 
             pygame.display.flip()
             clock.tick(self.speed)
-        self.chosengame = 0
-        self.start_game()
+        if running == True:
+            self.chosengame = 0
+            self.start_game()
 
     def run_economics(self):
+
         pygame.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption('Game of Life')
         rules = True
+        running = True
         while rules:
             myImage1 = pygame.image.load('images\\economicsrules.jpg')
             myRect1 = (0, 0, 640, 480)
@@ -355,22 +363,30 @@ class GameOfLife:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     rules = False
                 if event.type == QUIT:
+                    rules = False
                     pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        rules = False
+                        running = False
+                        self.start_game()
+                        self.chosengame = 0
+        if running == True:
+            self.screen.fill(pygame.Color('white'))
 
-        self.screen.fill(pygame.Color('white'))
+            self.draw_grid()
+            pygame.display.flip()
+            self.create_cell_list()
+            self.draw_cell_list()
+            self.draw_grid()
+            pygame.display.flip()
+            clock.tick(self.speed)
 
-        running = True
-        self.draw_grid()
-        pygame.display.flip()
-        self.create_cell_list()
-        self.draw_cell_list()
-        self.draw_grid()
-        pygame.display.flip()
-        clock.tick(self.speed)
         while running and self.counter < 40:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     running = False
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         running = False
@@ -382,18 +398,20 @@ class GameOfLife:
             self.draw_grid()
             pygame.display.flip()
             clock.tick(self.speed)
-        self.counter = 0
-        results = [i['converted'] for i in self.score[2:]]
-        winner = results.index(max(results)) + 1
-        print('Player #', winner, ' wins!')
-        self.chosengame = 0
-        self.start_game()
+        if running == True:
+            self.counter = 0
+            results = [i['converted'] for i in self.score[2:]]
+            winner = results.index(max(results)) + 1
+            print('Player #', winner, ' wins!')
+            self.chosengame = 0
+            self.start_game()
 
     def run_religion(self):
         pygame.init()
         clock = pygame.time.Clock()
         pygame.display.set_caption('Game of Life')
         rules = True
+        running = True
         while rules:
             myImage1 = pygame.image.load('images\\religionrules.jpg')
             myRect1 = (0, 0, 640, 480)
@@ -404,40 +422,48 @@ class GameOfLife:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     rules = False
                 if event.type == QUIT:
+                    rules = False
                     pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        rules = False
+                        running = False
+                        self.start_game()
+                        self.chosengame = 0
+        if running == True:
+            self.screen.fill(pygame.Color('white'))
+            self.draw_grid()
+            pygame.display.flip()
+            self.create_cell_list()
+            self.draw_cell_list()
+            self.draw_grid()
+            pygame.display.flip()
+            clock.tick(self.speed)
 
-        self.screen.fill(pygame.Color('white'))
-        running = True
-        self.draw_grid()
-        pygame.display.flip()
-        self.create_cell_list()
-        self.draw_cell_list()
-        self.draw_grid()
-        pygame.display.flip()
-        clock.tick(self.speed)
-        running = True
         while running and self.counter < 30:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                    self.chosengame = 0
-                    self.start_game()
             self.evolve()
             self.counter += 1
             self.draw_cell_list()
             self.draw_grid()
             pygame.display.flip()
             clock.tick(self.speed)
-        self.counter = 0
-        results = [i['result'] for i in self.score[2:]]
-        winner = results.index(max(results)) + 1
-        print('Player #', winner, ' wins!')
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    running = False
+                    pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    running = False
+                    self.chosengame = 0
+                    self.start_game()
 
-        self.chosengame = 0
-        self.start_game()
+        if running == True:
+            self.counter = 0
+            results = [i['result'] for i in self.score[2:]]
+            winner = results.index(max(results)) + 1
+            print('Player #', winner, ' wins!')
+            self.chosengame = 0
+            self.start_game()
 
     def create_cell_list(self, randomize=False, b='black'):
         self.cell_list = [[0] * self.cell_width for i in range(self.cell_height)]
@@ -448,7 +474,13 @@ class GameOfLife:
                     self.cell_list[i][j] = rand1(choicelist)
         else:
             count = 0
+            font = 0
             while count < self.moves * (self.n - 2) ** 2:
+                font = pygame.font.Font(None, 72)
+                text = font.render("Hello Wold", 1, (0, 100, 0))
+                place = text.get_rect(center=(200, 150))
+                self.screen.blit(text, place)
+                pygame.display.flip()
                 for i in pygame.event.get():
                     if i.type == pygame.MOUSEBUTTONDOWN:
                         if i.button == 1:
@@ -493,15 +525,15 @@ if __name__ == '__main__':
 
     game = GameOfLife(640, 480, 20, 5)
     game.start_game()
+    while True:
+        if game.chosengame == 1:
+            game.run_war()
 
-    if game.chosengame == 1:
-        game.run_war()
+        if game.chosengame == 2:
+            game.run_economics()
 
-    if game.chosengame == 2:
-        game.run_economics()
+        if game.chosengame == 3:
+            game.run_religion()
 
-    if game.chosengame == 3:
-        game.run_religion()
-
-    if game.chosengame == 4:
-        game.run_life()
+        if game.chosengame == 4:
+            game.run_life()
