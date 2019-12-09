@@ -474,13 +474,7 @@ class GameOfLife:
                     self.cell_list[i][j] = rand1(choicelist)
         else:
             count = 0
-            font = 0
             while count < self.moves * (self.n - 2) ** 2:
-                font = pygame.font.Font(None, 72)
-                text = font.render("Hello Wold", 1, (0, 100, 0))
-                place = text.get_rect(center=(200, 150))
-                self.screen.blit(text, place)
-                pygame.display.flip()
                 for i in pygame.event.get():
                     if i.type == pygame.MOUSEBUTTONDOWN:
                         if i.button == 1:
